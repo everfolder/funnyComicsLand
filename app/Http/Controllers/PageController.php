@@ -15,4 +15,7 @@ class PageController extends Controller
     public function auth() {
         return view('pages.auth');
     }
+    public function admin_index() {
+        return view('admin.index');
+    }
 }

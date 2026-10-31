@@ -3,8 +3,13 @@
     Авторизация
 @endsection
 @section('content')
+    @if(session()->has('error'))
+        <div class="alert alert-danger">
+            {{session('error')}}
+        </div>
+    @endif
     <form method="post" action="{{route('login')}}">
-        @csrfз
+        @csrf
         <div class="mb-3">
             <label for="login" class="form-label">Логин</label>
             <input type="text" class="form-control" id="login" name="login" aria-describedby="emailHelp">
