@@ -31,12 +31,16 @@ class UserController extends Controller
     }
     public function login(Request $request) {
         $user = User::query()->where('login', $request->login)->where('password', md5($request->password))->first();
-        if ($user->is_admin == 1) {
-            return redirect()->route('admin.index');
-        }
         if (!$user) {
             return redirect()->back()->with('error', 'Неверный логин или пароль');
         }
+        if ($user->is_admin == 1) {
+            return redirect()->route('admin.index');
+        }
+        return redirect()->route('welcome');
+    }
+    public function logout() {
+        Auth::logout();
         return redirect()->route('welcome');
     }
 }

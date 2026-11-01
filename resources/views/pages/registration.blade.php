@@ -61,6 +61,9 @@
                 @error('rules') {{$message}} @enderror
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="mb-3">
+            <a href="{{route('auth')}}">Уже зарегистрированы? Войти</a>
+        </div>
+        <button type="submit" class="btn btn-primary">Регистрация</button>
     </form>
 @endsection

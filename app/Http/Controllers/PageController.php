@@ -18,4 +18,13 @@ class PageController extends Controller
     public function admin_index() {
         return view('admin.index');
     }
+    public function about() {
+        return view('pages.about');
+    }
+    public function where() {
+        return view('pages.where');
+    }
+    public function catalog() {
+        return view('pages.catalog');
+    }
 }
