@@ -18,6 +18,9 @@
             <label for="password" class="form-label">Пароль</label>
             <input type="password" class="form-control" id="password" name="password">
         </div>
+        <div class="mb-3">
+            <a href="{{route('registration')}}">Еще не зарегистрированы? Регистрация</a>
+        </div>
         <button type="submit" class="btn btn-primary">Авторизация</button>
     </form>
 @endsection
