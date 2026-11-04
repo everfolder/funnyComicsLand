@@ -18,9 +18,16 @@ class CategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $request->validate([
+           'title' => 'required|unique:categories|max:255',
+        ]);
+        $category = new Category();
+        $category->title = $request->title;
+        $category->save();
+
+        return redirect()->back(); //->with('category_success', 'категория успешно добавлена!');
     }
 
     /**

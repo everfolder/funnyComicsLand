@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -16,7 +17,8 @@ class PageController extends Controller
         return view('pages.auth');
     }
     public function admin_index() {
-        return view('admin.index');
+        $categories = Category::all();
+        return view('admin.index', ['categories' => $categories]);
     }
     public function about() {
         return view('pages.about');
@@ -26,5 +28,8 @@ class PageController extends Controller
     }
     public function catalog() {
         return view('pages.catalog');
+    }
+    public function cart() {
+        return view('pages.cart');
     }
 }

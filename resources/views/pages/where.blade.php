@@ -44,7 +44,7 @@
             </div>
             <div class="col-md-6">
                 <div class="card border-0 shadow-sm overflow-hidden h-100">
-                    <img src="{{ asset('storage/images/map-placeholder.jpg') }}" class="card-img-top w-100" alt="Схема проезда" style="height: 300px; object-fit: cover;">
+                    <img src="{{ asset('public/media/images/map.jpg') }}" class="card-img-top w-100" alt="Схема проезда" style="height: 300px; object-fit: cover;">
                     <div class="card-body text-center bg-light">
                         <p class="card-text text-muted small mb-0">Мы находимся в самом центре города, в двух минутах от главной пешеходной улицы.</p>
                     </div>

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('year');
             $table->string('publisher');
             $table->string('antagonist');
+            $table->text('description');
             $table->timestamps();
         });
     }

@@ -18,9 +18,29 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $request->validate([
+           'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        $product = new Product();
+        $product->title = $request->title;
+        $product->price = $request->price;
+        $product->count = $request->count;
+        $product->year = $request->year;
+        $product->publisher = $request->publisher;
+        $product->antagonist = $request->antagonist;
+        $product->description = $request->description;
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('media/images'), $filename);
+            $product->image = 'media/images'.$filename;
+        }
+
+        $product->save();
+        return redirect()->back()->with('success', 'Товар успешно добавлен!');
     }
 
     /**
