@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\CartItem;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartItemController extends Controller
 {
@@ -26,7 +28,7 @@ class CartItemController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store()
     {
         //
     }
@@ -61,5 +63,16 @@ class CartItemController extends Controller
     public function destroy(CartItem $cartItem)
     {
         //
+    }
+    public function add(Product $product) {
+
+
+
+        $cart = new CartItem();
+        $cart->user_id = Auth::user()->id;
+        $cart->product_id = $product->id;
+        $cart->save();
+
+        return redirect()->back()->with('success', 'товар в корзине');
     }
 }

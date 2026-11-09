@@ -21,3 +21,5 @@ Route::get('/about', [\App\Http\Controllers\PageController::class, 'about'])->na
 Route::get('/catalog', [\App\Http\Controllers\PageController::class, 'catalog'])->name('catalog');
 Route::get('/where', [\App\Http\Controllers\PageController::class, 'where'])->name('where');
 Route::get('/cart', [\App\Http\Controllers\PageController::class, 'cart'])->name('cart');
+Route::post('/cart/add/{product}', [\App\Http\Controllers\CartItemController::class, 'add'])->name('cart.add');
+Route::get('/product/{product}', [\App\Http\Controllers\PageController::class, 'open_product'])->name('open.product');

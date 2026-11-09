@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('year');
             $table->string('publisher');
             $table->string('antagonist');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

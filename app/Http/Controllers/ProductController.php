@@ -20,8 +20,9 @@ class ProductController extends Controller
      */
     public function create(Request $request)
     {
+//        dd($request->all());
         $request->validate([
-           'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+           'image' => 'required|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
         ]);
         $product = new Product();
         $product->title = $request->title;
@@ -31,12 +32,13 @@ class ProductController extends Controller
         $product->publisher = $request->publisher;
         $product->antagonist = $request->antagonist;
         $product->description = $request->description;
+        $product->category_id = $request->category_id;
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('media/images'), $filename);
-            $product->image = 'media/images'.$filename;
+            $file->move(public_path('storage/media/images'), $filename);
+            $product->image = 'storage/media/images/'.$filename;
         }
 
         $product->save();

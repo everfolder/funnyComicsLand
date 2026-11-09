@@ -4,12 +4,12 @@
 @endsection
 @section('content')
     @if(session()->has('success'))
-        <div class="alert alert-danger">
+        <div class="alert alert-info">
             {{session('success')}}
         </div>
     @endif
     <h2>Добавить продукт</h2>
-    <form method="post" action="{{route('product.create')}}" class="row mb-3 g-3 needs-validation" novalidate>
+    <form method="post" action="{{route('product.create')}}" class="row mb-5 g-3 needs-validation" enctype="multipart/form-data" novalidate>
         @csrf
         @method('post')
 
@@ -60,9 +60,9 @@
             <label for="image" class="form-label">Добавить обложку</label>
             <input type="file" class="form-control" id="image" name="image" required>
         </div>
-        <div class="mb-3">
-            <label for="desc_text" class="form-label">Добавить описание товара</label>
-            <textarea class="form-control" id="desc_text" name="desc_text" rows="3"></textarea>
+        <div class="mb-1">
+            <label for="description" class="form-label">Добавить описание товара</label>
+            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
         </div>
         <div class="col-12">
             <button class="btn btn-primary" type="submit">Добавить</button>
