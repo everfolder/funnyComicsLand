@@ -97,7 +97,6 @@
             </thead>
             <tbody>
 
-{{--            цикл по категориям--}}
             @foreach($categories as $category)
                 <tr>
                     <th scope="row">{{$category->id}}</th>

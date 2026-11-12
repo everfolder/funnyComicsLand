@@ -20,6 +20,7 @@
                             {{isset($inCart[$product->id]) ? 'Уже в корзине' : 'Добавить в корзину'}}
                         </button>
                     </form>
+                    <a href="{{route('product.open', $product->id)}}">О товаре</a>
                 </div>
             </div>
         @endforeach

@@ -9,7 +9,7 @@ Route::post('/register', [\App\Http\Controllers\UserController::class, 'register
 
 Route::get('/auth', [\App\Http\Controllers\PageController::class, 'auth'])->name('auth');
 Route::post('/login', [\App\Http\Controllers\UserController::class, 'login'])->name('login');
-Route::post('/logout', [\App\Http\Controllers\UserController::class, 'logout'])->name('logout');
+Route::get('/logout', [\App\Http\Controllers\UserController::class, 'logout'])->name('logout');
 
 Route::get('/admin', [\App\Http\Controllers\PageController::class, 'admin_index'])->name('admin.index');
 
@@ -22,4 +22,4 @@ Route::get('/catalog', [\App\Http\Controllers\PageController::class, 'catalog'])
 Route::get('/where', [\App\Http\Controllers\PageController::class, 'where'])->name('where');
 Route::get('/cart', [\App\Http\Controllers\PageController::class, 'cart'])->name('cart');
 Route::post('/cart/add/{product}', [\App\Http\Controllers\CartItemController::class, 'add'])->name('cart.add');
-Route::get('/product/{product}', [\App\Http\Controllers\PageController::class, 'open_product'])->name('open.product');
+Route::get('/product/{product}', [\App\Http\Controllers\ProductController::class, 'show'])->name('product.open');

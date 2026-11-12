@@ -35,10 +35,7 @@ class PageController extends Controller
         return view('pages.catalog', ['products' => $products, 'inCart' => $inCart]);
     }
     public function cart() {
-        $cartItems = CartItem::all();
+        $cartItems = CartItem::query()->where('user_id',Auth::id())->get();
         return view('pages.cart', ['cartItems' => $cartItems]);
-    }
-    public function open_product() {
-        return view('pages.product');
     }
 }
