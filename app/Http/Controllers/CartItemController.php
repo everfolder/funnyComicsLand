@@ -65,14 +65,25 @@ class CartItemController extends Controller
         //
     }
     public function add(Product $product) {
-
-
-
         $cart = new CartItem();
         $cart->user_id = Auth::user()->id;
         $cart->product_id = $product->id;
         $cart->save();
 
         return redirect()->back()->with('success', 'товар в корзине');
+    }
+    public function increase(CartItem $cartItem) {
+        $cartItem->count += 1;
+        $cartItem->save();
+        return redirect()->back();
+    }
+    public function decrease(CartItem $cartItem) {
+        $cartItem->count -= 1;
+        if ($cartItem->count >= 1){
+            $cartItem->save();
+        } else {
+            $cartItem->delete();
+        }
+        return redirect()->back();
     }
 }

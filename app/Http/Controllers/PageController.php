@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CartItem;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +37,14 @@ class PageController extends Controller
     }
     public function cart() {
         $cartItems = CartItem::query()->where('user_id',Auth::id())->get();
-        return view('pages.cart', ['cartItems' => $cartItems]);
+        $sum = 0;
+        foreach ($cartItems as $cartItem) {
+            $sum += $cartItem->product->price * $cartItem->count;
+        }
+        return view('pages.cart', ['cartItems' => $cartItems, 'sum' => $sum]);
+    }
+    public function orders() {
+        $orders = Order::all();
+        return view('pages.orders', ['orders' => $orders]);
     }
 }

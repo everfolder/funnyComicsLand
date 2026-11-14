@@ -25,6 +25,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('where')}}">Где нас найти?</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('orders')}}">Мои заказы</a>
+                </li>
             </ul>
             @auth
                 <div class="d-flex align-items-center gap-3">

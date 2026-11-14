@@ -1,1 +1,5 @@
-/*работает если что*/
+.cart_act_btn{
+    border: none;
+    background-color: transparent;
+    font-size: 2rem;
+}

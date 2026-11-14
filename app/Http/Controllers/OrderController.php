@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CartItem;
 use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -20,7 +22,26 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        $order = new Order();
+        $order->user_id = auth()->id();
+        $order->save();
+
+        $cartItems = CartItem::query()->where('user_id', auth()->id())->get();
+        $currentOrderId = Order::query()->where('user_id', auth()->id())->latest()->first()->id;
+
+//        dd($currentOrderId . $cartItems);
+
+        foreach ($cartItems as $cartItem) {
+            $orderItem = new OrderItem();
+            $orderItem->product_id = $cartItem->product_id;
+            $orderItem->count = $cartItem->count;
+            $orderItem->price = $cartItem->product->price;
+            $orderItem->order_id = $currentOrderId;
+            $orderItem->save();
+        }
+
+
+        return redirect()->back()->with('success', 'Заказ успешно оформлен, можете перейти во вкладку с заказами');
     }
 
     /**

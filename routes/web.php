@@ -20,6 +20,13 @@ Route::post('/category/create', [\App\Http\Controllers\CategoryController::class
 Route::get('/about', [\App\Http\Controllers\PageController::class, 'about'])->name('about');
 Route::get('/catalog', [\App\Http\Controllers\PageController::class, 'catalog'])->name('catalog');
 Route::get('/where', [\App\Http\Controllers\PageController::class, 'where'])->name('where');
+Route::get('/orders', [\App\Http\Controllers\PageController::class, 'orders'])->name('orders');
+
 Route::get('/cart', [\App\Http\Controllers\PageController::class, 'cart'])->name('cart');
 Route::post('/cart/add/{product}', [\App\Http\Controllers\CartItemController::class, 'add'])->name('cart.add');
+Route::post('/cart/increase/{cartItem}', [\App\Http\Controllers\CartItemController::class, 'increase'])->name('cart.increase');
+Route::post('/cart/decrease/{cartItem}', [\App\Http\Controllers\CartItemController::class, 'decrease'])->name('cart.decrease');
+
 Route::get('/product/{product}', [\App\Http\Controllers\ProductController::class, 'show'])->name('product.open');
+
+Route::post('/order/create', [\App\Http\Controllers\OrderController::class, 'create'])->name('order.create');
