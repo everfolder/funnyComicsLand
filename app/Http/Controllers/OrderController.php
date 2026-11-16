@@ -28,7 +28,6 @@ class OrderController extends Controller
 
         $cartItems = CartItem::query()->where('user_id', auth()->id())->get();
         $currentOrderId = Order::query()->where('user_id', auth()->id())->latest()->first()->id;
-
 //        dd($currentOrderId . $cartItems);
 
         foreach ($cartItems as $cartItem) {
@@ -37,7 +36,14 @@ class OrderController extends Controller
             $orderItem->count = $cartItem->count;
             $orderItem->price = $cartItem->product->price;
             $orderItem->order_id = $currentOrderId;
+            $cartItem->product->count -= $cartItem->count;
+
+            $cartItem->product->save();
             $orderItem->save();
+
+            if ($cartItem->product->count <= 0) {
+                $cartItem->product->delete();
+            }
         }
 
         CartItem::query()->where('user_id', auth()->id())->delete();

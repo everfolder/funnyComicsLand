@@ -18,7 +18,7 @@ return new class extends Migration
             // id товара, его количество и стоимость 1 штуки походу.
 
             $table->id();
-            $table->foreignIdFor(\App\Models\Product::class)->constrained()->cascadeOnDelete()->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\Product::class)->constrained()->cascadeOnUpdate();
             $table->foreignIdFor(\App\Models\Order::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignIdFor(\App\Models\Status::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->integer('count');
