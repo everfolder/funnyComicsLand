@@ -22,10 +22,12 @@ class PageController extends Controller
     }
     public function admin_index() {
         $categories = Category::all();
-        return view('admin.index', ['categories' => $categories]);
+        $orders = Order::all();
+        return view('admin.index', ['categories' => $categories, 'orders' => $orders]);
     }
     public function about() {
-        return view('pages.about');
+        $products = Product::latest()->take(5)->get();
+        return view('pages.about', ['products' => $products]);
     }
     public function where() {
         return view('pages.where');
@@ -44,7 +46,7 @@ class PageController extends Controller
         return view('pages.cart', ['cartItems' => $cartItems, 'sum' => $sum]);
     }
     public function orders() {
-        $orders = Order::all();
+        $orders = Order::where('user_id', Auth::id())->get();
         return view('pages.orders', ['orders' => $orders]);
     }
 }

@@ -40,7 +40,7 @@ class OrderController extends Controller
             $orderItem->save();
         }
 
-
+        CartItem::query()->where('user_id', auth()->id())->delete();
         return redirect()->back()->with('success', 'Заказ успешно оформлен, можете перейти во вкладку с заказами');
     }
 

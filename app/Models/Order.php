@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    //
+    public function status() {
+        return $this->belongsTo(Status::class);
+    }
+    public function items() {
+        return $this->hasMany(OrderItem::class);
+    }
 }

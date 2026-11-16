@@ -69,11 +69,15 @@ class CartItemController extends Controller
         $cart->user_id = Auth::user()->id;
         $cart->product_id = $product->id;
         $cart->save();
-
         return redirect()->back()->with('success', 'товар в корзине');
     }
     public function increase(CartItem $cartItem) {
-        $cartItem->count += 1;
+
+        if ($cartItem->count < $cartItem->product->count) {
+            $cartItem->count += 1;
+        } else {
+            return redirect()->back()->with('error', 'Максимальное количество данного товара');
+        }
         $cartItem->save();
         return redirect()->back();
     }

@@ -45,11 +45,18 @@
             @endforeach
             </tbody>
         </table>
+
+        @if(session()->has('error'))
+            <div class="alert alert-danger">
+                {{session('error')}}
+            </div>
+        @endif
         @if(session()->has('success'))
             <div class="alert alert-info">
                 {{session('success')}}
             </div>
         @endif
+
         <div class="text-end">
             <p>Итого: <b>{{$sum}}</b></p>
             <form method="post" action="{{route('order.create')}}">

@@ -3,6 +3,20 @@
     Админ-панель
 @endsection
 @section('content')
+
+    <div class="mb-3">
+        <div>
+            <h5>Фильтрация</h5>
+            <p>тут примерно</p>
+        </div>
+        <h2>Все заявки</h2>
+        <div class="row" style="gap:1rem">
+            @foreach($orders as $order)
+
+            @endforeach
+        </div>
+    </div>
+
     @if(session()->has('success'))
         <div class="alert alert-info">
             {{session('success')}}
@@ -19,14 +33,13 @@
                 <input type="text" class="form-control" id="title" name="title" placeholder="Введите название">
             </div>
             <div>
-                <label for="category_id" class="form-label">Выберите категори (надо будет сделать селект)</label>
+                <label for="category_id" class="form-label">Выберите категорию</label>
                 <select class="form-select" id="category_id" name="category_id" aria-label="Default select example">
                     <option selected>Укажите категорию...</option>
                     @foreach($categories as $category)
                         <option value="{{$category->id}}">{{$category->title}}</option>
                     @endforeach
                 </select>
-
             </div>
         </div>
 
