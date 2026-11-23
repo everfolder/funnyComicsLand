@@ -75,9 +75,16 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Order $order)
+    public function edit(Order $order, Request $request)
     {
-        //
+//        dd($request->all());
+        if ($order->status_id == $request->status_id) {
+            return redirect()->back()->with('error', 'Выбран текущий статус');
+        }
+        $order->status_id = $request->status_id;
+        $order->save();
+
+        return redirect()->back()->with('success', 'Статус успешно изменен');
     }
 
     /**
@@ -93,6 +100,7 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        $order->delete();
+        return redirect()->back();
     }
 }

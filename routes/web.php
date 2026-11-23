@@ -12,13 +12,18 @@ Route::post('/login', [\App\Http\Controllers\UserController::class, 'login'])->n
 Route::get('/logout', [\App\Http\Controllers\UserController::class, 'logout'])->name('logout');
 
 Route::get('/admin', [\App\Http\Controllers\PageController::class, 'admin_index'])->name('admin.index');
+Route::post('/admin/delete/{order}', [\App\Http\Controllers\OrderController::class, 'destroy'])->name('admin.order.delete');
 
 Route::post('/product/create', [\App\Http\Controllers\ProductController::class, 'create'])->name('product.create');
 
 Route::post('/category/create', [\App\Http\Controllers\CategoryController::class, 'create'])->name('category.create');
 
 Route::get('/about', [\App\Http\Controllers\PageController::class, 'about'])->name('about');
+
 Route::get('/catalog', [\App\Http\Controllers\PageController::class, 'catalog'])->name('catalog');
+Route::post('/catalog/category/filter', [\App\Http\Controllers\CategoryController::class, 'filter'])->name('category.filter');
+Route::post('/catalog/category/sort', [\App\Http\Controllers\PageController::class, 'catalog_sorting'])->name('category.sort');
+
 Route::get('/where', [\App\Http\Controllers\PageController::class, 'where'])->name('where');
 Route::get('/orders', [\App\Http\Controllers\PageController::class, 'orders'])->name('orders');
 
@@ -30,3 +35,4 @@ Route::post('/cart/decrease/{cartItem}', [\App\Http\Controllers\CartItemControll
 Route::get('/product/{product}', [\App\Http\Controllers\ProductController::class, 'show'])->name('product.open');
 
 Route::post('/order/create', [\App\Http\Controllers\OrderController::class, 'create'])->name('order.create');
+Route::post('/order/edit/{order}', [\App\Http\Controllers\OrderController::class, 'edit'])->name('order.edit');

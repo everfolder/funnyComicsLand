@@ -4,8 +4,39 @@
 @endsection
 @section('content')
     <h2>Все товары</h2>
-    <div>
-        <h3>Фильтрация*</h3>
+    <div class="mb-3">
+        <form method="post" action="{{route('category.filter')}}">
+            @csrf
+            <select id="category_id" name="category_id">
+                <option selected disabled>Выберите категорию...</option>
+                <option value="0">Все категории</option>
+                @foreach($categories as $category)
+                    <option value="{{$category->id}}">{{$category->title}}</option>
+                @endforeach
+            </select>
+
+            <button type="submit" class="btn btn-primary">
+                Применить
+            </button>
+        </form>
+    </div>
+    <div class="mb-3">
+        <p>Упорядочить по</p>
+
+        <form method="post" action="{{route('category.sort')}}">
+            @csrf
+            <select id="category_id" name="sort">
+                <option selected disabled>Выберите порядо отображения...</option>
+                <option value="0">Все категории</option>
+                @foreach($categories as $category)
+                    <option value="{{$category->id}}">{{$category->title}}</option>
+                @endforeach
+            </select>
+
+            <button type="submit" class="btn btn-primary">
+                Применить
+            </button>
+        </form>
     </div>
     <div class="row gap-1">
         @foreach($products as $product)

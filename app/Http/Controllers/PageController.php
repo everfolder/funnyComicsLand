@@ -39,9 +39,10 @@ class PageController extends Controller
         return view('pages.where');
     }
     public function catalog() {
-        $products = Product::all();
+        $categories = Category::all();
+        $products =  Product::all();
         $inCart = CartItem::query()->where('user_id',Auth::id())->pluck('product_id')->flip()->all();
-        return view('pages.catalog', ['products' => $products, 'inCart' => $inCart]);
+        return view('pages.catalog', ['products' => $products, 'inCart' => $inCart, 'categories' => $categories]);
     }
     public function cart() {
         $cartItems = CartItem::query()->where('user_id',Auth::id())->get();
@@ -54,5 +55,9 @@ class PageController extends Controller
     public function orders() {
         $orders = Order::where('user_id', Auth::id())->get();
         return view('pages.orders', ['orders' => $orders]);
+    }
+
+    public function catalog_sorting(Request $request) {
+
     }
 }

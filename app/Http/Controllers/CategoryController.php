@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CartItem;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -68,5 +71,16 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //
+    }
+    public function filter(Request $request){
+        $categories = Category::all();
+        $inCart = CartItem::query()->where('user_id',Auth::id())->pluck('product_id')->flip()->all();
+        if ($request->category_id == 0) {
+            $products = Product::all();
+        }
+        if ($request->category_id) {
+            $products = Product::where('category_id', $request->category_id)->get();
+        }
+        return view('pages.catalog',['products'=>$products, 'categories'=>$categories, 'inCart'=>$inCart]);
     }
 }

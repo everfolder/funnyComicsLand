@@ -5,23 +5,85 @@
 @section('content')
 
     <div class="mb-3">
+        <h2>Все заказы</h2>
+
         <div>
             <h5>Фильтрация</h5>
-            <p>тут примерно</p>
+            <div class="mb-3">
+                <select class="form-select" id="filter_status" name="filter_status" aria-label="Default select example">
+                    <option selected>Укажите статус...</option>
+                    @foreach($statuses as $status)
+                        <option value="{{$status->id}}">{{$status->title}}</option>
+                    @endforeach
+                </select>
+            </div>
         </div>
-        <h2>Все заявки</h2>
+
         <div class="row" style="gap:1rem">
             @foreach($orders as $order)
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{$order->id}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">От {{$order->user->login}}</h6>
+                        <p>Статус: {{$order->status->title}}</p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#orderModal{{$order->id}}">
+                            Изменить
+                        </button>
+                        <form method="post" action="{{route('admin.order.delete', $order->id)}}">
+                            @csrf
+{{--                        Надо короче свой стиль сделать для удаления--}}
+                            <button type="submit" class="btn btn-outline-warning">
+                                Удалить
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="orderModal{{$order->id}}" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form method="post" action="{{route('order.edit', $order->id)}}">
+                                @csrf
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Изменение заказа (id {{$order->id}})</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label for="status_id" class="form-label">Изменить статус</label>
+                                        <select class="form-select" id="status_id" name="status_id" aria-label="Default select example">
+                                            <option selected>Укажите статус...</option>
+                                            @foreach($statuses as $status)
+                                                <option value="{{$status->id}}" {{$status->id == $order->status->id ? 'selected' : ''}}>{{$status->title}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
             @endforeach
         </div>
     </div>
 
+    @if(session()->has('error'))
+        <div class="alert alert-danger">
+            {{session('error')}}
+        </div>
+    @endif
     @if(session()->has('success'))
         <div class="alert alert-info">
             {{session('success')}}
         </div>
     @endif
+
     <h2>Добавить продукт</h2>
     <form method="post" action="{{route('product.create')}}" class="row mb-5 g-3 needs-validation" enctype="multipart/form-data" novalidate>
         @csrf
