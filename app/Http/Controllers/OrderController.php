@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -20,15 +21,20 @@ class OrderController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
+        $currentUserPassword = User::where('id', auth()->id())->first()->password;
+//        dd($currentUserPassword);
+        if (md5($request->password) != $currentUserPassword) {
+            return redirect()->back()->with('error', 'Неверный пароль');
+        }
+
         $order = new Order();
         $order->user_id = auth()->id();
         $order->save();
 
         $cartItems = CartItem::query()->where('user_id', auth()->id())->get();
         $currentOrderId = Order::query()->where('user_id', auth()->id())->latest()->first()->id;
-//        dd($currentOrderId . $cartItems);
 
         foreach ($cartItems as $cartItem) {
             $orderItem = new OrderItem();

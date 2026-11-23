@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('cansel')->nullable();
             $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('Status')->default('Новый'); // Новый, Завершен, Отменен
+            $table->foreignIdFor(\App\Models\Status::class)->default(1)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
