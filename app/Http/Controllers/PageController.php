@@ -6,6 +6,7 @@ use App\Models\CartItem;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,9 +22,14 @@ class PageController extends Controller
         return view('pages.auth');
     }
     public function admin_index() {
+        if(Auth::user()->is_admin != 1){
+            return redirect()->back();
+        }
+
         $categories = Category::all();
         $orders = Order::all();
-        return view('admin.index', ['categories' => $categories, 'orders' => $orders]);
+        $statuses = Status::all();
+        return view('admin.index', ['categories' => $categories, 'orders' => $orders, 'statuses' => $statuses]);
     }
     public function about() {
         $products = Product::latest()->take(5)->get();

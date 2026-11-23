@@ -12,7 +12,7 @@
                 <div class="card shadow-sm">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="mb-0">Заказ от {{ $order->created_at }}</h5>
-                        <span class="badge bg-primary">{{ $order->status }}</span>
+                        <span class="badge bg-primary">{{ $order->status->title }}</span>
                     </div>
 
                     <div class="card-body">
@@ -22,7 +22,7 @@
                                     <div class="card-body">
                                         <h6 class="card-title">{{ $itemInfo->product->title }}</h6>
                                         <h6 class="card-subtitle mb-2 text-muted">
-                                            Стоимость: {{ $itemInfo->price * $itemInfo->count }} руб.
+                                            Всего стоимость: {{ $itemInfo->price * $itemInfo->count }} руб.
                                         </h6>
                                         <p class="card-text mb-0">
                                             Количество: {{ $itemInfo->count }} шт.

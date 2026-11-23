@@ -20,7 +20,6 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\Product::class)->constrained()->cascadeOnUpdate();
             $table->foreignIdFor(\App\Models\Order::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignIdFor(\App\Models\Status::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->integer('count');
             $table->integer('price');
             $table->timestamps();
