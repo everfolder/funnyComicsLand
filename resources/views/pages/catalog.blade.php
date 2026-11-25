@@ -7,7 +7,7 @@
     <div class="mb-3">
         <form method="post" action="{{route('category.filter')}}">
             @csrf
-            <select id="category_id" name="category_id">
+            <select id="category_id" name="category_id" onchange="this.form.submit()">
                 <option selected disabled>Выберите категорию...</option>
                 <option value="0">Все категории</option>
                 @foreach($categories as $category)
@@ -22,20 +22,16 @@
     </div>
     <div class="mb-3">
         <p>Упорядочить по</p>
-
-        <form method="post" action="{{route('category.sort')}}">
+        <form method="get">
             @csrf
-            <select id="category_id" name="sort">
-                <option selected disabled>Выберите порядо отображения...</option>
-                <option value="0">Все категории</option>
-                @foreach($categories as $category)
-                    <option value="{{$category->id}}">{{$category->title}}</option>
-                @endforeach
+            <select id="sort" name="sort" onchange="this.form.submit()">
+                <option selected value="year_desc" @selected(request('sort') === 'year_desc')>Сначала новые</option>
+                <option value="year_asc" @selected(request('sort') === 'year_asc')>Сначала старые</option>
+                <option value="title_asc" @selected(request('sort') === 'title_asc')>По названию (А-Я)</option>
+                <option value="title_desc" @selected(request('sort') === 'title_desc')>По названию (Я-А)</option>
+                <option value="price_asc" @selected(request('sort') === 'price_asc')>Сначала дешевле</option>
+                <option value="price_desc" @selected(request('sort') === 'price_desc')>Сначала дороже</option>
             </select>
-
-            <button type="submit" class="btn btn-primary">
-                Применить
-            </button>
         </form>
     </div>
     <div class="row gap-1">

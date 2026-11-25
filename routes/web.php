@@ -22,7 +22,7 @@ Route::get('/about', [\App\Http\Controllers\PageController::class, 'about'])->na
 
 Route::get('/catalog', [\App\Http\Controllers\PageController::class, 'catalog'])->name('catalog');
 Route::post('/catalog/category/filter', [\App\Http\Controllers\CategoryController::class, 'filter'])->name('category.filter');
-Route::post('/catalog/category/sort', [\App\Http\Controllers\PageController::class, 'catalog_sorting'])->name('category.sort');
+//Route::post('/catalog/category/sort', [\App\Http\Controllers\ProductController::class, 'sort'])->name('category.sort');
 
 Route::get('/where', [\App\Http\Controllers\PageController::class, 'where'])->name('where');
 Route::get('/orders', [\App\Http\Controllers\PageController::class, 'orders'])->name('orders');

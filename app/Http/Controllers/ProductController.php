@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CartItem;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -84,4 +87,37 @@ class ProductController extends Controller
     {
         //
     }
+//    public function sort(Request $request){
+//        $categories = Category::all();
+//        $inCart = CartItem::query()->where('user_id',Auth::id())->pluck('product_id')->flip()->all();
+//
+//        $sortedProducts = Product::query();
+//        switch ($request->sort) {
+//            case 'year_desc':
+//                $sortedProducts->orderBy('year', 'desc');
+//                break;
+//            case 'year_asc':
+//                $sortedProducts->orderBy('year', 'asc');
+//                break;
+//            case 'price_desc':
+//                $sortedProducts->orderBy('price', 'desc');
+//                break;
+//            case 'price_asc':
+//                $sortedProducts->orderBy('price', 'asc');
+//                break;
+//            case 'title_asc':
+//                $sortedProducts->orderBy('title', 'asc');
+//                break;
+//            case 'title_desc':
+//                $sortedProducts->orderBy('title', 'desc');
+//                break;
+//
+//            default:
+//                $sortedProducts->orderBy('year', 'desc');
+//                break;
+//        }
+//
+//        $sortedProducts = $sortedProducts->get();
+//        return view('pages.catalog', ['products' => $sortedProducts, 'categories' => $categories, 'inCart' => $inCart]);
+//    }
 }
