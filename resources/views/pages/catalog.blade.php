@@ -5,13 +5,13 @@
 @section('content')
     <h2>Все товары</h2>
     <div class="mb-3">
-        <form method="post" action="{{route('category.filter')}}">
+        <form method="post" onchange="this.form.submit()">
             @csrf
             <select id="category_id" name="category_id" onchange="this.form.submit()">
                 <option selected disabled>Выберите категорию...</option>
-                <option value="0">Все категории</option>
+                <option @selected(request('filter'==="0")) value="0">Все категории</option>
                 @foreach($categories as $category)
-                    <option value="{{$category->id}}">{{$category->title}}</option>
+                    <option @selected(request('filter') === '$category->id') value="{{$category->id}}">{{$category->title}}</option>
                 @endforeach
             </select>
 

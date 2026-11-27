@@ -41,8 +41,12 @@ class PageController extends Controller
     public function catalog(Request $request) {
         $categories = Category::all();
         $inCart = CartItem::query()->where('user_id',Auth::id())->pluck('product_id')->flip()->all();
-
         $sortedProducts = Product::query();
+
+        if ($request->category_id && $request->category_id != 0 ) {
+            $sortedProducts = $sortedProducts->where('category_id', $request->category_id);
+        }
+
         switch ($request->sort) {
             case 'year_desc':
                 $sortedProducts->orderBy('year', 'desc');
@@ -63,9 +67,6 @@ class PageController extends Controller
                 $sortedProducts->orderBy('title', 'desc');
                 break;
 
-            default:
-                $sortedProducts->orderBy('year', 'desc');
-                break;
         }
 
         $sortedProducts = $sortedProducts->get();

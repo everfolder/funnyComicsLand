@@ -77,11 +77,22 @@ class OrderController extends Controller
      */
     public function edit(Order $order, Request $request)
     {
-//        dd($request->all());
+        $request->validate([
+            'status_id' => 'required|exists:statuses,id',
+            'cansel'    => 'required_if:status_id,2|nullable|string|max:1000',
+        ], [
+            'cansel.required_if' => 'Укажите причину отмены заказа.',
+        ]);
         if ($order->status_id == $request->status_id) {
             return redirect()->back()->with('error', 'Выбран текущий статус');
         }
+
+        $order->cansel = $request->cansel;
         $order->status_id = $request->status_id;
+
+        if ($request->status_id != 2) {
+            $order->cansel = null;
+        }
         $order->save();
 
         return redirect()->back()->with('success', 'Статус успешно изменен');
