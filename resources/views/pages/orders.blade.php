@@ -14,7 +14,6 @@
                         <h5 class="mb-0">Заказ от {{ $order->created_at }}</h5>
                         <span class="badge bg-primary">{{ $order->status->title }}</span>
                     </div>
-
                     <div class="card-body">
                         <div class="d-flex flex-wrap gap-3">
                             @foreach($order->items as $itemInfo)
@@ -32,6 +31,17 @@
                             @endforeach
                         </div>
                     </div>
+                    @if($order->status_id == 1)
+                        <div class="card-footer d-flex justify-content-end">
+                            <form method="post" action="{{ route('user.order.delete', $order->id) }}" onsubmit="return">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    Отменить заказ
+                                </button>
+                            </form>
+                        </div>
+                    @endif
                 </div>
             @endforeach
         </div>

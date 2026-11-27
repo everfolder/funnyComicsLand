@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,6 @@ class OrderController extends Controller
     public function create(Request $request)
     {
         $currentUserPassword = User::where('id', auth()->id())->first()->password;
-//        dd($currentUserPassword);
         if (md5($request->password) != $currentUserPassword) {
             return redirect()->back()->with('error', 'Неверный пароль');
         }
@@ -46,10 +46,6 @@ class OrderController extends Controller
 
             $cartItem->product->save();
             $orderItem->save();
-
-            if ($cartItem->product->count <= 0) {
-                $cartItem->product->delete();
-            }
         }
 
         CartItem::query()->where('user_id', auth()->id())->delete();

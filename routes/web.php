@@ -12,17 +12,14 @@ Route::post('/login', [\App\Http\Controllers\UserController::class, 'login'])->n
 Route::get('/logout', [\App\Http\Controllers\UserController::class, 'logout'])->name('logout');
 
 Route::get('/admin', [\App\Http\Controllers\PageController::class, 'admin_index'])->name('admin.index');
-Route::post('/admin/delete/{order}', [\App\Http\Controllers\OrderController::class, 'destroy'])->name('admin.order.delete');
-
-Route::post('/product/create', [\App\Http\Controllers\ProductController::class, 'create'])->name('product.create');
+Route::delete('/admin/delete/order/{order}', [\App\Http\Controllers\OrderController::class, 'destroy'])->name('admin.order.delete');
+Route::delete('/admin/delete/product/{product}', [\App\Http\Controllers\ProductController::class, 'destroy'])->name('admin.product.delete');
 
 Route::post('/category/create', [\App\Http\Controllers\CategoryController::class, 'create'])->name('category.create');
 
 Route::get('/about', [\App\Http\Controllers\PageController::class, 'about'])->name('about');
 
 Route::get('/catalog', [\App\Http\Controllers\PageController::class, 'catalog'])->name('catalog');
-//Route::post('/catalog/category/filter', [\App\Http\Controllers\CategoryController::class, 'filter'])->name('category.filter');
-//Route::post('/catalog/category/sort', [\App\Http\Controllers\ProductController::class, 'sort'])->name('category.sort');
 
 Route::get('/where', [\App\Http\Controllers\PageController::class, 'where'])->name('where');
 Route::get('/orders', [\App\Http\Controllers\PageController::class, 'orders'])->name('orders');
@@ -32,7 +29,10 @@ Route::post('/cart/add/{product}', [\App\Http\Controllers\CartItemController::cl
 Route::post('/cart/increase/{cartItem}', [\App\Http\Controllers\CartItemController::class, 'increase'])->name('cart.increase');
 Route::post('/cart/decrease/{cartItem}', [\App\Http\Controllers\CartItemController::class, 'decrease'])->name('cart.decrease');
 
+Route::post('/product/create', [\App\Http\Controllers\ProductController::class, 'create'])->name('product.create');
 Route::get('/product/{product}', [\App\Http\Controllers\ProductController::class, 'show'])->name('product.open');
+Route::put('/product/edit/{product}', [\App\Http\Controllers\ProductController::class, 'edit'])->name('product.edit');
 
 Route::post('/order/create', [\App\Http\Controllers\OrderController::class, 'create'])->name('order.create');
-Route::post('/order/edit/{order}', [\App\Http\Controllers\OrderController::class, 'edit'])->name('order.edit');
+Route::put('/order/edit/{order}', [\App\Http\Controllers\OrderController::class, 'edit'])->name('order.edit');
+Route::delete('/order/delete/{order}', [\App\Http\Controllers\OrderController::class, 'destroy'])->name('user.order.delete');

@@ -23,9 +23,16 @@ class ProductController extends Controller
      */
     public function create(Request $request)
     {
-//        dd($request->all());
         $request->validate([
-           'image' => 'required|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
+            'title' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'price' => 'required|numeric|min:0',
+            'count' => 'required|integer|min:0',
+            'year' => 'required|integer',
+            'publisher' => 'required|string|max:255',
+            'antagonist' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
         ]);
         $product = new Product();
         $product->title = $request->title;
@@ -67,9 +74,37 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit(Request $request, Product $product)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'price' => 'required|numeric|min:0',
+            'count' => 'required|integer|min:0',
+            'year' => 'required|integer',
+            'publisher' => 'required|string|max:255',
+            'antagonist' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
+        ]);
+
+        $product->title = $request->title;
+        $product->category_id = $request->category_id;
+        $product->price = $request->price;
+        $product->count = $request->count;
+        $product->year = $request->year;
+        $product->publisher = $request->publisher;
+        $product->antagonist = $request->antagonist;
+        $product->description = $request->description;
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('products', 'public');
+            $product->image = 'storage/' . $path;
+        }
+
+        $product->save();
+
+        return back()->with('success', 'Товар успешно обновлён');
     }
 
     /**
@@ -85,6 +120,10 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        if (\App\Models\OrderItem::where('product_id', $product->id)->exists()) {
+            return back()->with('error', 'Нельзя удалить товар — он уже есть в оформленных заказах');
+        }
+        $product->delete();
+        return redirect()->back();
     }
 }

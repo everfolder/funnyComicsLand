@@ -72,7 +72,6 @@ class CartItemController extends Controller
         return redirect()->back()->with('success', 'товар в корзине');
     }
     public function increase(CartItem $cartItem) {
-
         if ($cartItem->count < $cartItem->product->count) {
             $cartItem->count += 1;
         } else {

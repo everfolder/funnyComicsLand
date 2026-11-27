@@ -26,10 +26,11 @@ class PageController extends Controller
             return redirect()->back();
         }
 
+        $products = Product::all();
         $categories = Category::all();
         $orders = Order::all();
         $statuses = Status::all();
-        return view('admin.index', ['categories' => $categories, 'orders' => $orders, 'statuses' => $statuses]);
+        return view('admin.index', ['categories' => $categories, 'orders' => $orders, 'statuses' => $statuses, 'products' => $products]);
     }
     public function about() {
         $products = Product::latest()->take(5)->get();
