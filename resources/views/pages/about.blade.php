@@ -22,15 +22,13 @@
             <h2 class="text-center mb-4">Новинки компании</h2>
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
-{{--                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>--}}
                     @foreach($products as $key=>$product)
                         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{$key}}" class="{{$key==0? 'active' : ''}}" aria-label="Slide 1"></button>
                     @endforeach
-{{--                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>--}}
                 </div>
                 <div class="carousel-inner">
                     @foreach($products as $key=>$product)
-                        <div class="carousel-item active">
+                        <div class="carousel-item {{$key==0 ? 'active' : ''}}">
                             <img width=262 src="{{asset($product->image)}}" class="d-block mx-auto" alt="no-img">
                         </div>
                     @endforeach

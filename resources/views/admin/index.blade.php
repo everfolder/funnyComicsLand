@@ -18,7 +18,7 @@
     <div class="mb-5">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="mb-0">Все заказы</h2>
-            <form method="get" action="" class="d-flex align-items-center gap-2">
+            <form method="get" action="{{route('admin.order.filter')}}" class="d-flex align-items-center gap-2">
                 <label for="filter_status" class="form-label mb-0 text-muted small">Фильтр:</label>
                 <select class="form-select form-select-sm w-auto" id="filter_status" name="filter_status" onchange="this.form.submit()">
                     <option value="">Все статусы</option>
@@ -103,11 +103,7 @@
                                         <label for="cansel_{{ $order->id }}" class="form-label">
                                             Причина отмены <span class="text-muted small">(если отменён)</span>
                                         </label>
-                                        <textarea class="form-control @error('cansel') is-invalid @enderror"
-                                                  id="cansel_{{ $order->id }}"
-                                                  name="cansel"
-                                                  rows="3"
-                                                  placeholder="Опишите причину отмены...">{{ old('cansel', $order->cansel) }}</textarea>
+                                        <textarea class="form-control @error('cansel') is-invalid @enderror" id="cansel_{{ $order->id }}" name="cansel" rows="3" placeholder="Опишите причину отмены...">{{ old('cansel', $order->cansel) }}</textarea>
                                         @error('cansel')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror

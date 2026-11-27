@@ -13,6 +13,7 @@ Route::get('/logout', [\App\Http\Controllers\UserController::class, 'logout'])->
 
 Route::get('/admin', [\App\Http\Controllers\PageController::class, 'admin_index'])->name('admin.index');
 Route::delete('/admin/delete/order/{order}', [\App\Http\Controllers\OrderController::class, 'destroy'])->name('admin.order.delete');
+Route::get('/admin/order/filter', [\App\Http\Controllers\OrderController::class, 'filter'])->name('admin.order.filter');
 Route::delete('/admin/delete/product/{product}', [\App\Http\Controllers\ProductController::class, 'destroy'])->name('admin.product.delete');
 Route::post('/admin/category/create', [\App\Http\Controllers\CategoryController::class, 'create'])->name('admin.category.create');
 Route::put('/admin/category/update/{category}', [\App\Http\Controllers\CategoryController::class, 'update'])->name('admin.category.update');

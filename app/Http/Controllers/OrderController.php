@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\CartItem;
+use App\Models\Category;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\Status;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -88,6 +91,12 @@ class OrderController extends Controller
 
         if ($request->status_id != 2) {
             $order->cansel = null;
+        } else {
+            foreach ($order->items as $item) {
+                $currentProduct = Product::where('id', $item->product_id)->first();
+                $currentProduct->count += $item->count;
+                $currentProduct->save();
+            }
         }
         $order->save();
 
@@ -109,5 +118,17 @@ class OrderController extends Controller
     {
         $order->delete();
         return redirect()->back();
+    }
+    public function filter(Request $request) {
+        if(Auth::user()->is_admin != 1){
+            return redirect()->back();
+        }
+        if ($request->filter_status && $request->filter_status != 0) {
+            $orders = Order::where('status_id', $request->filter_status)->get();
+        }
+        $products = Product::all();
+        $categories = Category::all();
+        $statuses = Status::all();
+        return view('admin.index', ['categories' => $categories, 'orders' => $orders, 'statuses' => $statuses, 'products' => $products]);
     }
 }
