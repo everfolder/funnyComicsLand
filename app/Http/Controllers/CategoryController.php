@@ -62,7 +62,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+        ]);
+
+        $category->title = $request->title;
+        $category->save();
+
+        return back()->with('success', 'Категория обновлена');
     }
 
     /**
@@ -70,7 +77,13 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        if (\App\Models\Product::where('category_id', $category->id)->exists()) {
+            return back()->with('error', 'Нельзя удалить категорию — к ней привязаны товары');
+        }
+
+        $category->delete();
+
+        return back()->with('success', 'Категория удалена');
     }
     public function filter(Request $request){
         $categories = Category::all();
